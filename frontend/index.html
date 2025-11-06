@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BioCLI Companion</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .input-section {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #34495e;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            font-family: 'Courier New', monospace;
+            box-sizing: border-box;
+        }
+        button {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+        button:hover {
+            background: #2980b9;
+        }
+        button:disabled {
+            background: #bdc3c7;
+            cursor: not-allowed;
+        }
+        .result-section {
+            margin-top: 20px;
+            padding: 20px;
+            background: #ecf0f1;
+            border-radius: 5px;
+            display: none;
+        }
+        .loading {
+            text-align: center;
+            color: #7f8c8d;
+            font-style: italic;
+        }
+        .error {
+            color: #e74c3c;
+            background: #fadbd8;
+            padding: 15px;
+            border-radius: 5px;
+            border-left: 4px solid #e74c3c;
+        }
+        .explanation {
+            line-height: 1.6;
+            color: #2c3e50;
+        }
+        .example-commands {
+            margin-top: 20px;
+            padding: 15px;
+            background: #e8f6f3;
+            border-radius: 5px;
+        }
+        .example-commands h3 {
+            margin-top: 0;
+            color: #27ae60;
+        }
+        .example-cmd {
+            font-family: 'Courier New', monospace;
+            background: white;
+            padding: 8px;
+            border-radius: 3px;
+            margin: 5px 0;
+            border-left: 3px solid #27ae60;
+            cursor: pointer;
+        }
+        .example-cmd:hover {
+            background: #f8f9fa;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧬 BioCLI Companion</h1>
+        <p style="text-align: center; color: #7f8c8d; margin-bottom: 30px;">
+            Understanding bioinformatics command-line tools, one command at a time
+        </p>
+        
+        <div class="input-section">
+            <label for="command-input">Enter a bioinformatics command:</label>
+            <input type="text" id="command-input" placeholder="e.g., bwa mem -t 8 reference.fa reads.fq" />
+            <button onclick="explainCommand()" id="explain-btn">Explain Command</button>
+        </div>
+
+        <div class="example-commands">
+            <h3>📚 Try these example commands:</h3>
+            <div class="example-cmd" onclick="fillCommand('bwa mem -t 8 reference.fa reads_1.fq reads_2.fq')">
+                bwa mem -t 8 reference.fa reads_1.fq reads_2.fq
+            </div>
+            <div class="example-cmd" onclick="fillCommand('samtools view -b -S alignment.sam > alignment.bam')">
+                samtools view -b -S alignment.sam > alignment.bam
+            </div>
+            <div class="example-cmd" onclick="fillCommand('fastqc -o output_dir --threads 4 sample.fastq')">
+                fastqc -o output_dir --threads 4 sample.fastq
+            </div>
+            <div class="example-cmd" onclick="fillCommand('bcftools call -mv -Oz variants.vcf.gz')">
+                bcftools call -mv -Oz variants.vcf.gz
+            </div>
+        </div>
+
+        <div class="result-section" id="result-section">
+            <div id="result-content"></div>
+        </div>
+    </div>
+
+    <script>
+        // Fill command input with example
+        function fillCommand(command) {
+            document.getElementById('command-input').value = command;
+        }
+
+        // Handle Enter key in input field
+        document.getElementById('command-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                explainCommand();
+            }
+        });
+
+        async function explainCommand() {
+            const command = document.getElementById('command-input').value.trim();
+            const resultSection = document.getElementById('result-section');
+            const resultContent = document.getElementById('result-content');
+            const explainBtn = document.getElementById('explain-btn');
+
+            // Validate input
+            if (!command) {
+                alert('Please enter a command to explain!');
+                return;
+            }
+
+            // Show loading state
+            resultSection.style.display = 'block';
+            resultContent.innerHTML = '<div class="loading">🤔 Analyzing your command...</div>';
+            explainBtn.disabled = true;
+            explainBtn.textContent = 'Analyzing...';
+
+            try {
+                // Call the backend API
+                const response = await fetch('http://localhost:8001/api/explain', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ command: command })
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const data = await response.json();
+                resultContent.innerHTML = `<div class="explanation">${data.explanation}</div>`;
+                
+            } catch (error) {
+                console.error('Error explaining command:', error);
+                resultContent.innerHTML = `
+                    <div class="error">
+                        <strong>Error:</strong> Unable to explain the command. 
+                        ${error.message || 'Please try again later.'}
+                    </div>
+                `;
+            } finally {
+                explainBtn.disabled = false;
+                explainBtn.textContent = 'Explain Command';
+            }
+        }
+
+        // Temporary mock function - will be replaced with real API
+        function generateMockExplanation(command) {
+            const tool = command.split(' ')[0];
+            
+            return `
+                <h3>🔧 Tool: <code>${tool}</code></h3>
+                <p><strong>Command entered:</strong> <code>${command}</code></p>
+                <div style="background: #fff3cd; padding: 15px; border-radius: 5px; border-left: 4px solid #ffc107; margin: 15px 0;">
+                    <strong>⚠️ Demo Mode:</strong> This is a placeholder response. Once we set up the backend and OpenAI API, 
+                    you'll get detailed explanations of what this command does, what each parameter means, 
+                    and how it fits into bioinformatics workflows!
+                </div>
+                <p><strong>What we'll explain:</strong></p>
+                <ul>
+                    <li>What the <code>${tool}</code> tool does</li>
+                    <li>What each parameter means</li>
+                    <li>Expected input and output files</li>
+                    <li>Common use cases in bioinformatics</li>
+                    <li>Potential issues to watch out for</li>
+                </ul>
+            `;
+        }
+    </script>
+</body>
+</html>
+
