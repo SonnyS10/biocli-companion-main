@@ -36,16 +36,19 @@
 
 **Validation**: Can paste `bwa mem -t 8 ref.fa reads.fq` and get a decent explanation
 
-#### Week 2: Backend Foundation
-**Deliverable**: Python FastAPI backend
+#### Week 2: Backend Foundation & API Issues
+**Deliverable**: Python FastAPI backend with working OpenAI integration
 
 **Tasks**:
-1. [ ] Set up FastAPI project
-2. [ ] Create API endpoint for command explanation
-3. [ ] Implement command parsing logic
-4. [ ] Add bioinformatics tool detection (BWA, samtools, FastQC, etc.)
-5. [ ] Integrate OpenAI API properly
-6. [ ] Add error handling
+1. [x] Set up FastAPI project
+2. [x] Create API endpoint for command explanation
+3. [x] Implement command parsing logic
+4. [x] Add bioinformatics tool detection (BWA, samtools, FastQC, etc.)
+5. [x] Integrate OpenAI API properly
+6. [x] Add error handling
+7. [ ] **🔧 FIX OPENAI API QUOTA ISSUE** - Check billing/usage and restore real AI responses
+8. [ ] Test real OpenAI responses with multiple commands
+9. [ ] Optimize prompt for better bioinformatics explanations
 
 **Validation**: API returns structured explanations reliably
 
