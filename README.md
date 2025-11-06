@@ -1,33 +1,55 @@
 # BioCLI Companion 🧬
 
-> An interactive tool to help students and researchers understand bioinformatics command-line workflows
+> **Revolutionary desktop app**: Terminal + AI sidebar for real-time bioinformatics command assistance
 
 ## 🎯 Mission
 
-Make the command-line portion of bioinformatics easier to understand for people learning computational biology.
+**Transform how people learn and use bioinformatics command-line tools** - like having an expert looking over your shoulder, without interrupting your workflow.
 
 ## 🚀 What This Does
 
-BioCLI Companion is a web-based tool that helps you:
-- **Explain** complex bioinformatics commands in plain English
-- **Build** commands step-by-step with guided inputs
-- **Understand** what each parameter does and why it matters
-- **Learn** by doing, with real-time feedback
+BioCLI Companion is a **desktop application** that provides:
 
-## ✨ Features (Planned)
+### 🖥️ **Integrated Terminal + AI Sidebar**
+```
+┌─────────────────┬─────────────────┐
+│   Your Terminal │   AI Assistant  │
+│                 │                 │
+│ $ bwa mem -t 8  │ 💡 BWA detected │
+│   ref.fa r.fq   │ ⚠️  Suggestions │
+│                 │ 📊 Progress     │
+│ $ samtools sort │ 🔄 Next: Index  │
+└─────────────────┴─────────────────┘
+```
 
-### Phase 1: MVP (Current Focus)
-- [ ] Command explainer - paste a command, get detailed breakdown
-- [ ] AI-powered explanations using GPT-4
-- [ ] Support for common tools (BWA, samtools, FastQC, STAR, etc.)
-- [ ] Clean, simple web interface
+### ✨ **Real-time Assistance**
+- **Command Recognition**: Instantly identifies bioinformatics tools as you type
+- **Live Explanations**: Understand what each command does without leaving your terminal  
+- **Workflow Guidance**: Suggests logical next steps in your analysis pipeline
+- **Error Prevention**: Warns about missing files or incorrect parameters
+- **No Interruption**: Your commands execute normally, help appears in sidebar
 
-### Phase 2: Command Builder
-- [ ] Interactive form to build commands step-by-step
-- [ ] Parameter validation and suggestions
-- [ ] Export to shell script
+## ✨ Features
 
-### Phase 3: Enhanced Learning
+### ✅ **Phase 1: Foundation (COMPLETED)**
+- ✅ Web-based command explainer (proof of concept)
+- ✅ AI-powered explanations using GPT-3.5/4
+- ✅ Support for common tools (BWA, samtools, FastQC, STAR, etc.)
+- ✅ FastAPI backend with optimized prompts
+
+### 🚧 **Phase 2: Desktop App (IN PROGRESS)**
+- [ ] **Cross-platform desktop application** (Electron-based)
+- [ ] **Integrated terminal emulator** with full command execution
+- [ ] **Real-time command monitoring** and AI assistance sidebar
+- [ ] **Workflow detection** for common bioinformatics pipelines
+- [ ] **File system integration** (detect inputs/outputs, validate formats)
+
+### 🔮 **Phase 3: Advanced Intelligence (PLANNED)**
+- [ ] **Pipeline suggestions** based on file types and workflow patterns
+- [ ] **Performance optimization** recommendations for your hardware
+- [ ] **Progress tracking** for long-running analyses
+- [ ] **Command history analysis** to improve your workflows
+- [ ] **Multi-step guidance** through complex bioinformatics protocols
 - [ ] Common error detection and solutions
 - [ ] Best practices recommendations
 - [ ] Video tutorials and documentation links

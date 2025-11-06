@@ -1,75 +1,105 @@
 # BioCLI Companion - Detailed Project Plan
 
-## 🎯 Project Overview
+## 🎯 Project Overview - **NEW VISION!**
 
-**Goal**: Create a web-based tool that helps students and researchers understand bioinformatics command-line workflows through interactive explanations and guided command building.
+**PIVOTED GOAL**: Create a **desktop application with integrated terminal and AI sidebar** that provides real-time bioinformatics command assistance - like having an expert looking over your shoulder!
+
+**Revolutionary Concept**: 
+- **Left Panel**: Functional terminal interface for running commands
+- **Right Panel**: AI-powered assistant that provides real-time help, explanations, and suggestions
+- **No interruption**: Commands execute normally, help appears in sidebar
+- **Context-aware**: Understands your workflow and suggests next steps
 
 **Target Users**: 
-- Bioinformatics students (primary)
-- Researchers new to computational biology
-- Anyone learning bioinformatics pipelines
+- Bioinformatics students (primary) - learn commands safely with guidance
+- Researchers new to computational biology - get expert-level assistance
+- Experienced users - quick reference and workflow optimization
+- Educators - tool for teaching command-line bioinformatics
 
 **Success Metrics**:
 - You use it regularly in your own work
-- 5+ classmates find it helpful
+- 5+ classmates find it helpful  
 - Positive feedback on r/bioinformatics
-- Portfolio piece for grad school/jobs
+- **Portfolio differentiator** for grad school/jobs (innovative, not just another web app)
+- Potential commercial product (unique value proposition)
 
 ---
 
-## 📅 Timeline & Phases
+## 📅 NEW Timeline & Phases - Desktop App Vision
 
-### Phase 1: MVP - Command Explainer (Weeks 1-4)
+### Phase 1: Foundation & Web MVP (Weeks 1-2) ✅ **COMPLETED**
 
-**Goal**: Build the simplest useful version
+**Goal**: Prove the AI concept works
 
-#### Week 1: Setup & Prototype
-**Deliverable**: Basic working prototype
+**Completed Tasks**:
+- ✅ Working web interface for command explanations
+- ✅ FastAPI backend with OpenAI integration
+- ✅ Optimized prompts for bioinformatics education
+- ✅ Error handling and CORS setup
+- ✅ Full end-to-end working system
 
-**Tasks**:
-1. ✅ Create GitHub repository
-2. [ ] Set up basic project structure
-3. [ ] Create simple HTML/JS frontend (single page)
-4. [ ] Set up OpenAI API integration
-5. [ ] Build command parser (basic)
-6. [ ] Test with 3-5 common commands
+**Validation**: ✅ Web version works, AI gives good explanations (when quota available)
 
-**Validation**: Can paste `bwa mem -t 8 ref.fa reads.fq` and get a decent explanation
+---
 
-#### Week 2: Backend Foundation & API Issues
-**Deliverable**: Python FastAPI backend with working OpenAI integration
+### Phase 2: Desktop App Architecture (Weeks 3-4)
 
-**Tasks**:
-1. [x] Set up FastAPI project
-2. [x] Create API endpoint for command explanation
-3. [x] Implement command parsing logic
-4. [x] Add bioinformatics tool detection (BWA, samtools, FastQC, etc.)
-5. [x] Integrate OpenAI API properly
-6. [x] Add error handling
-7. [ ] **🔧 FIX OPENAI API QUOTA ISSUE** - Check billing/usage and restore real AI responses
-8. [ ] Test real OpenAI responses with multiple commands
-9. [ ] Optimize prompt for better bioinformatics explanations
+**Goal**: Build the revolutionary terminal + sidebar desktop app
 
-**Validation**: API returns structured explanations reliably
-
-#### Week 3: Frontend Improvement
-**Deliverable**: Clean, usable interface
+#### Week 3: Desktop App Foundation
+**Deliverable**: Working desktop app with basic terminal + sidebar
 
 **Tasks**:
-1. [ ] Set up React app (or keep it simple with vanilla JS)
-2. [ ] Create command input component
-3. [ ] Build explanation display component
-4. [ ] Add loading states and error handling
-5. [ ] Basic styling (Tailwind or simple CSS)
-6. [ ] Mobile-responsive design
+1. [ ] Set up Electron development environment
+2. [ ] Create basic app window with split layout (terminal | sidebar)
+3. [ ] Integrate terminal emulator (xterm.js or similar)
+4. [ ] Connect existing FastAPI backend to desktop app
+5. [ ] Basic sidebar with command detection
+6. [ ] Test command execution and AI responses
 
-**Validation**: Interface is intuitive and looks professional
+**Validation**: Can run basic commands in left panel, see AI help in right panel
 
-#### Week 4: Polish & Deploy
-**Deliverable**: Live, usable tool
+#### Week 4: Real-time Features & Polish
+**Deliverable**: Production-ready desktop application
 
 **Tasks**:
-1. [ ] Add support for 10 common tools
+1. [ ] Real-time command monitoring and parsing
+2. [ ] Command auto-completion and suggestions
+3. [ ] Workflow step tracking (detect common bioinformatics pipelines)
+4. [ ] File system integration (detect input/output files)
+5. [ ] Progress tracking for long-running commands
+6. [ ] Professional UI design and user experience
+7. [ ] Package for distribution (Windows, Mac, Linux)
+
+**Validation**: Seamless bioinformatics workflow assistance
+
+---
+
+### Phase 3: Advanced Features (Weeks 5-8)
+
+**Goal**: Make it indispensable for bioinformatics work
+
+#### Advanced Capabilities:
+- [ ] **Pipeline Detection**: Recognize common workflows (RNA-seq, variant calling, etc.)
+- [ ] **File Format Validation**: Check if inputs are correct formats
+- [ ] **Resource Monitoring**: Show CPU/memory usage, estimate completion times
+- [ ] **Command History Intelligence**: Learn user patterns, suggest optimizations
+- [ ] **Multi-step Guidance**: "After BWA alignment, you usually need to sort with samtools..."
+- [ ] **Error Prevention**: "This command might fail because input.fastq doesn't exist"
+- [ ] **Performance Optimization**: Suggest better parameters for user's hardware
+
+---
+
+### Phase 4: Distribution & Impact (Weeks 9-12)
+
+**Goal**: Get it into the hands of real users
+
+#### Distribution Strategy:
+- [ ] GitHub releases with auto-updater
+- [ ] Submit to bioinformatics communities
+- [ ] Create demo videos and documentation
+- [ ] Reach out to university bioinformatics programs
+- [ ] Consider commercial licensing for institutions
 2. [ ] Improve explanation quality (iterate based on testing)
 3. [ ] Add example commands
 4. [ ] Write basic documentation

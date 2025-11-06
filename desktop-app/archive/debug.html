@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BioCLI Companion - Debug</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #1a1a1a;
+            color: #e0e0e0;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            color: #7BC142;
+        }
+        .status {
+            background: #252525;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+        }
+        .success {
+            color: #28a745;
+        }
+        .error {
+            color: #dc3545;
+        }
+    </style>
+</head>
+<body>
+    <h1>🧬 BioCLI Companion - Debug Mode</h1>
+    
+    <div class="status">
+        <h3>Basic Electron Test</h3>
+        <div id="basic-status">✅ HTML Loaded Successfully</div>
+    </div>
+
+    <div class="status">
+        <h3>Node.js Integration</h3>
+        <div id="node-status">Testing...</div>
+    </div>
+
+    <div class="status">
+        <h3>Dependencies Check</h3>
+        <div id="deps-status">Testing...</div>
+    </div>
+
+    <div class="status">
+        <h3>Console Output</h3>
+        <div id="console-output">Check DevTools console for detailed logs...</div>
+    </div>
+
+    <script>
+        console.log('🚀 Debug page loading...');
+        
+        // Test 1: Basic JavaScript
+        try {
+            document.getElementById('basic-status').innerHTML = '✅ JavaScript Working';
+            console.log('✅ Basic JS working');
+        } catch (e) {
+            console.error('❌ Basic JS error:', e);
+            document.getElementById('basic-status').innerHTML = '❌ JavaScript Error: ' + e.message;
+        }
+
+        // Test 2: Node integration
+        try {
+            const { ipcRenderer } = require('electron');
+            document.getElementById('node-status').innerHTML = '✅ Node.js Integration Working';
+            console.log('✅ Node integration working');
+        } catch (e) {
+            console.error('❌ Node integration error:', e);
+            document.getElementById('node-status').innerHTML = '❌ Node Integration Error: ' + e.message;
+        }
+
+        // Test 3: Dependencies
+        try {
+            console.log('Testing xterm dependency...');
+            // Don't actually load xterm yet, just check if files exist
+            document.getElementById('deps-status').innerHTML = '⏳ Will test dependencies after basic setup works';
+            console.log('✅ Ready for dependency testing');
+        } catch (e) {
+            console.error('❌ Dependencies error:', e);
+            document.getElementById('deps-status').innerHTML = '❌ Dependencies Error: ' + e.message;
+        }
+
+        console.log('🎉 Debug page loaded successfully!');
+    </script>
+</body>
+</html>

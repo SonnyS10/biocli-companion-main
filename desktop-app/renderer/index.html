@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BioCLI Companion</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Xterm.js CSS -->
+    <link rel="stylesheet" href="../node_modules/@xterm/xterm/css/xterm.css">
+</head>
+<body>
+    <!-- Main Application Container -->
+    <div id="app-container">
+        <!-- Terminal Panel (Left Side) -->
+        <div id="terminal-panel" class="panel">
+            <div class="panel-header">
+                <div class="header-title">
+                    <span class="terminal-icon">⚡</span>
+                    <span>Terminal</span>
+                </div>
+                <div class="header-controls">
+                    <button id="clear-terminal" class="control-btn" title="Clear Terminal">
+                        🗑️
+                    </button>
+                    <button id="new-terminal" class="control-btn" title="New Terminal Tab">
+                        ➕
+                    </button>
+                </div>
+            </div>
+            <div class="panel-content">
+                <!-- Terminal container -->
+                <div id="terminal-container"></div>
+            </div>
+        </div>
+
+        <!-- Resizer -->
+        <div id="resizer" class="resizer"></div>
+
+        <!-- AI Assistant Panel (Right Side) -->
+        <div id="ai-panel" class="panel">
+            <div class="panel-header">
+                <div class="header-title">
+                    <span class="ai-icon">🤖</span>
+                    <span>AI Assistant</span>
+                </div>
+                <div class="header-controls">
+                    <button id="clear-chat" class="control-btn" title="Clear Chat">
+                        🗑️
+                    </button>
+                    <button id="toggle-sidebar" class="control-btn" title="Toggle Sidebar">
+                        ⚡
+                    </button>
+                </div>
+            </div>
+            <div class="panel-content">
+                <!-- Chat Messages -->
+                <div id="chat-container">
+                    <div class="welcome-message">
+                        <div class="welcome-icon">🧬</div>
+                        <h3>Welcome to BioCLI Companion!</h3>
+                        <p>I'm here to help you understand bioinformatics commands. Try running a command in the terminal, and I'll automatically explain it!</p>
+                        <div class="example-commands">
+                            <p><strong>Try these examples:</strong></p>
+                            <code>bwa mem -t 4 reference.fa reads.fq</code><br>
+                            <code>samtools view -b -S alignment.sam</code><br>
+                            <code>fastqc *.fastq</code>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Input Area -->
+                <div id="input-container">
+                    <div class="input-wrapper">
+                        <input 
+                            type="text" 
+                            id="user-input" 
+                            placeholder="Ask me about any bioinformatics command..."
+                            autocomplete="off"
+                        >
+                        <button id="send-button" class="send-btn">
+                            📤
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Status Bar -->
+    <div id="status-bar">
+        <div class="status-left">
+            <span id="connection-status" class="status-item">🟢 Connected</span>
+            <span id="terminal-status" class="status-item">Terminal Ready</span>
+        </div>
+        <div class="status-right">
+            <span id="ai-status" class="status-item">AI Ready</span>
+            <span id="zoom-level" class="status-item">100%</span>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../node_modules/@xterm/xterm/lib/xterm.js"></script>
+    <!-- <script src="../node_modules/@xterm/addon-fit/lib/addon-fit.js"></script> -->
+    <script src="../node_modules/axios/dist/axios.min.js"></script>
+    <script src="renderer-simple-test.js"></script>
+</body>
+</html>

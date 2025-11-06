@@ -57,42 +57,74 @@ async def generate_explanation(command: str, tool: str) -> str:
         HTML-formatted explanation of the command
     """
     prompt = f"""
-    You are a bioinformatics expert helping students understand command-line tools. 
-    Please explain this bioinformatics command in detail:
+    You are an expert bioinformatics educator helping students learn command-line tools for genomics and computational biology.
+    
+    COMMAND TO EXPLAIN: {command}
+    TOOL: {tool}
+    
+    Please provide a comprehensive, educational explanation formatted in clean HTML. Structure your response exactly like this:
 
-    Command: {command}
+    <h3>🔧 Tool: {tool.upper()}</h3>
+    <p><strong>Command:</strong> <code>{command}</code></p>
+    
+    <h4>📖 What does {tool} do?</h4>
+    [Explain the biological purpose and computational function]
+    
+    <h4>⚙️ Parameter Breakdown</h4>
+    <ul>
+    [List each parameter with biological/computational context]
+    </ul>
+    
+    <h4>📁 Input & Output Files</h4>
+    [Explain file formats, what data they contain, and biological significance]
+    
+    <h4>🧬 Biological Context</h4>
+    [Explain where this fits in genomics workflows - RNA-seq, variant calling, quality control, etc.]
+    
+    <h4>⚠️ Important Notes</h4>
+    <ul>
+    [Common pitfalls, computational requirements, best practices]
+    </ul>
+    
+    <h4>🔗 Next Steps</h4>
+    [What you typically do after this command in a workflow]
 
-    Please provide a clear, educational explanation that includes:
-    1. What the main tool ({tool}) does
-    2. What each parameter/flag means
-    3. What the expected input and output files are
-    4. How this command fits into typical bioinformatics workflows
-    5. Common pitfalls or things to watch out for
-    6. Any prerequisites or dependencies
-
-    Format your response in HTML that's suitable for display in a web browser.
-    Use proper HTML tags like <h3>, <p>, <ul>, <li>, <code>, etc.
-    Make it educational and beginner-friendly, but scientifically accurate.
+    REQUIREMENTS:
+    - Use proper HTML tags and structure
+    - Include biological context, not just technical details
+    - Explain WHY each parameter matters for the biology
+    - Mention computational resources (memory, time) when relevant
+    - Use beginner-friendly language but stay scientifically accurate
+    - Include specific file format details (FASTQ, SAM, BAM, VCF, etc.)
     """
     
     try:
-        # Temporarily using mock response due to quota limits
-        # response = client.chat.completions.create(
-        #     model="gpt-3.5-turbo",
-        #     messages=[
-        #         {"role": "system", "content": "You are an expert bioinformatics educator who explains command-line tools clearly and accurately."},
-        #         {"role": "user", "content": prompt}
-        #     ],
-        #     max_tokens=1500,
-        #     temperature=0.7
-        # )
-        # return response.choices[0].message.content
+        api_key = os.getenv('OPENAI_API_KEY')
+        print(f"🔑 Using API key: {api_key[:20] if api_key else 'None'}...")  # Debug log
+        print(f"📝 Command to explain: {command}")
+        print(f"🔧 Tool detected: {tool}")
         
-        # Mock response for development/testing
-        return generate_detailed_mock_explanation(command, tool)
+        if not api_key:
+            raise Exception("No OpenAI API key found in environment variables")
+        
+        print("🚀 Making OpenAI API call...")
+        # Real OpenAI API call - quota restored!
+        response = client.chat.completions.create(
+            model="gpt-3.5-turbo",
+            messages=[
+                {"role": "system", "content": "You are an expert bioinformatics educator who explains command-line tools clearly and accurately."},
+                {"role": "user", "content": prompt}
+            ],
+            max_tokens=1500,
+            temperature=0.7
+        )
+        print("✅ OpenAI API call successful!")  # Debug log
+        return response.choices[0].message.content
         
     except Exception as e:
-        # Fallback response if OpenAI fails
+        print(f"❌ OpenAI API Error: {str(e)}")  # Debug log
+        print(f"❌ Error type: {type(e).__name__}")  # Debug log
+        # Fallback to mock response when API fails
         return f"""
         <h3>🔧 Tool: {tool}</h3>
         <p><strong>Command:</strong> <code>{command}</code></p>
